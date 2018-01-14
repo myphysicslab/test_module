@@ -1,0 +1,14 @@
+# .gitignore for test_module directory
+# Put your private ignore rules in .git/info/exclude.
+# adv-build contains advance-compiled apps
+/adv-build
+# build contains simple-compiled apps
+/build
+# debug contains special HTML files that can load the uncompiled JavaScript source code
+/debug
+# myConfig.mk is the developer's customized local copy of sampleConfig.mk
+myConfig.mk
+# closure-library is a symbolic link to the Google Closure Library.
+closure-library
+# .DS_Store files are created on Mac OS
+.DS_Store
