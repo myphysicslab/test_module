@@ -74,6 +74,19 @@ add(p) {
   return this;
 };
 
+/** Returns true if and only if the other object is a GenericVector with the same
+values.
+@param {!GenericVector} vector  the object to compare to
+@return {boolean}  true iff the other object is a GenericVector with the same values.
+*/
+equals(vector)  {
+  if (goog.isNull(vector))
+    return false;
+  return vector.getX() === this.x_ &&
+         vector.getY() === this.y_ &&
+         vector.getZ() === this.z_;
+};
+
 /** @override */
 getX() {
   return this.x_;

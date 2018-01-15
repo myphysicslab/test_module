@@ -5,41 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
-<!--
-* Runs a set of unit tests.
-*
-* When running uncompiled, the set is specified via <script> tags, which
-* cause those unit test scripts to be loaded, so that their various functions
-* are defined in the global scope.  The unit test functions have names starting
-* with the word 'test' which allows them to be found by goog.testing.junit.
-*
-* The unit test is activated if one of the unit tests includes the line
-*   goog.require('goog.testing.jsunit');
-* which causes a function in jsunit to auto-execute (after all the scripts
-* on the page have loaded).  That function looks for functions in the global scope
-* whose name begins with 'test', and it then runs all those tests in alphabetic
-* order, reporting the results by inserting elements into the webpage.
-* You can also see the results in the console.
-*
-* NOTE: when adding a test, add it also in compile_test.sh.
-*
-* The compiled version of the unit tests is created by compile_test.sh which
-* has a parallel list of unit test namespaces to run.  For example,
-* including the namespace "myphysicslab.lab.util.Vector_test" will cause
-* the contents of the file at src/lab/util/Vector_test.js to be compiled
-* because that file includes the statement
-*     goog.provide('myphysicslab.lab.util.Vector_test');
-* Note that there is not any object created for that namespace.
-* It is only a way to trick the compiler into compiling that particular file,
-* which results in various test functions, such as 'testVector', being added
-* to the global scope so that goog.testing.jsunit can find them, similar to
-* the uncompiled method.
-*
-* Unit tests need to use goog.exportProperty to ensure the name
-* of the unit test functions are not minified, so that goog.testing.jsunit
-* can find them by looking for functions that begin with 'test'.
--->
-
 <body>
 <h1>UnitTest</h1>
 
