@@ -3,6 +3,10 @@ singletest : build/test/SingleTest.html
 CLOSURE_COMPILER := ../closure-compiler/target/closure-compiler-1.0-SNAPSHOT.jar
 export CLOSURE_COMPILER
 
+# myConfig.mk defines variables such as BUILD_DIR, COMPILE_LEVEL, etc.
+# You can use sampleConfig.mk as a model when creating your own custom myConfig.mk.
+include myConfig.mk
+
 # Detect which operating system we are running under
 # From: https://stackoverflow.com/questions/714100/os-detecting-makefile
 ifeq ($(OS),Windows_NT)
