@@ -18,10 +18,32 @@ ifeq ($(detected_OS),Darwin)
     COPY_CMD := cp -vaX
 endif
 
-build/test/SingleTest-en.js : src/test/SingleTest.js
+# Static Pattern Rules:
+# We use static pattern rules because otherwise `make` ignores
+# prerequisites that don't exist. See
+# stackoverflow.com/questions/23964228/make-ignoring-prerequisite-that-doesnt-exist
+# Static Pattern Rule is like a Pattern rule, but only applies to an explicit list
+# of target files. Example: $(OBJECTS): %.o: %.c.
+# This is because `make` regards any file that doesn't appear as a target or goal
+# as an intermediate file.
+
+build/test/SingleTest-en.js : build/%-en.js : src/%.js
 	@mkdir -v -p $(dir $@)
 	./compile.sh $< $@ true true simple
 
-build/test/SingleTest.html : src/test/SingleTest.html build/test/SingleTest-en.js
+build/test/SingleTest.html : src/test/SingleTest.html | build/test/SingleTest-en.js
 	@mkdir -v -p $(dir $@)
 	@$(COPY_CMD) $< $@
+
+clean:
+	rm -rfv build
+
+# PHONY means "don't bother trying to make an actual file with this name"
+# PHONY also means "always out of date if it has no prerequistes"
+# PHONY also prevents implicit rules from trying to build these.
+.PHONY: clean
+
+# If .DELETE_ON_ERROR is mentioned as a target anywhere in the makefile, then make will
+# delete the target of a rule if it has changed and its recipe exits with a nonzero exit
+# status.
+.DELETE_ON_ERROR:

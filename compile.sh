@@ -198,15 +198,18 @@ fi
 
 # Using set -x shows the commands being executed, but the problem is that
 # the set +x always returns zero which means "success".
+
+# add these back once we can have static properties
+#--define=myphysicslab.lab.util.Util.ADVANCED=$advanced \
+#--define=myphysicslab.lab.util.Util.DEBUG=$util_debug \
+#--define=myphysicslab.lab.util.Util.COMPILE_TIME="`date +%F' '%T`" \
+
 set -x
 java -jar "$CLOSURE_COMPILER" \
 --entry_point=goog:$namespace \
 --compilation_level=$comp_level \
 --define=goog.DEBUG=$goog_debug \
 --define=goog.LOCALE="'$locale'" \
---define=myphysicslab.lab.util.Util.ADVANCED=$advanced \
---define=myphysicslab.lab.util.Util.DEBUG=$util_debug \
---define=myphysicslab.lab.util.Util.COMPILE_TIME="`date +%F' '%T`" \
 --generate_exports \
 --js=`readlink closure-library` \
 --js=$rootDir \
