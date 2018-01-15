@@ -199,10 +199,6 @@ fi
 # Using set -x shows the commands being executed, but the problem is that
 # the set +x always returns zero which means "success".
 
-# add these back once we can have static properties
-#--define=myphysicslab.lab.util.Util.ADVANCED=$advanced \
-#--define=myphysicslab.lab.util.Util.DEBUG=$util_debug \
-#--define=myphysicslab.lab.util.Util.COMPILE_TIME="`date +%F' '%T`" \
 
 set -x
 java -jar "$CLOSURE_COMPILER" \
@@ -213,6 +209,9 @@ java -jar "$CLOSURE_COMPILER" \
 --generate_exports \
 --js=`readlink closure-library` \
 --js=$rootDir \
+--define=module\$exports\$myphysicslab\$lab\$util\$Util.ADVANCED=$advanced \
+--define=module\$exports\$myphysicslab\$lab\$util\$Util.DEBUG=$util_debug \
+--define=module\$exports\$myphysicslab\$lab\$util\$Util.COMPILE_TIME="`date +%F' '%T`" \
 --jscomp_error=accessControls \
 --jscomp_error=ambiguousFunctionDecl \
 --jscomp_error=checkTypes \
