@@ -16,7 +16,6 @@ goog.module('myphysicslab.lab.util.Util');
 
 class Util {
   /** Provides static utility functions.
-  THIS CAUSES AN ERROR WHERE TO PUT IT?
   @private
   */
   constructor() { throw new Error(); }

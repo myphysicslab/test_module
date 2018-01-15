@@ -18,6 +18,8 @@ ifeq ($(detected_OS),Darwin)
     COPY_CMD := cp -vaX
 endif
 
+lab_js := $(shell find src/lab -name '*.js')
+
 # Static Pattern Rules:
 # We use static pattern rules because otherwise `make` ignores
 # prerequisites that don't exist. See
@@ -27,7 +29,7 @@ endif
 # This is because `make` regards any file that doesn't appear as a target or goal
 # as an intermediate file.
 
-build/test/SingleTest-en.js : build/%-en.js : src/%.js
+build/test/SingleTest-en.js : build/%-en.js : src/%.js $(lab_js)
 	@mkdir -v -p $(dir $@)
 	./compile.sh $< $@ true true simple
 
