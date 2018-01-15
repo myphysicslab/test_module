@@ -1,5 +1,10 @@
+# set the default target here.  Prerequisites are given later on.
+all:
+
 singletest : build/test/SingleTest.html
 
+unittest: build/test/UnitTest.html
+	
 CLOSURE_COMPILER := ../closure-compiler/target/closure-compiler-1.0-SNAPSHOT.jar
 export CLOSURE_COMPILER
 
@@ -33,6 +38,13 @@ lab_js := $(shell find src/lab -name '*.js')
 # This is because `make` regards any file that doesn't appear as a target or goal
 # as an intermediate file.
 
+build/test/UnitTest-en.js : build/test/UnitTest%.js : $(lab_js)
+	./compile_test.sh src $@ true simple
+
+build/test/UnitTest.html : src/test/UnitTest.html | build/test/UnitTest-en.js
+	@mkdir -v -p $(dir $@)
+	@$(COPY_CMD) $< $@
+
 build/test/SingleTest-en.js : build/%-en.js : src/%.js $(lab_js)
 	@mkdir -v -p $(dir $@)
 	./compile.sh $< $@ true true simple
@@ -40,6 +52,8 @@ build/test/SingleTest-en.js : build/%-en.js : src/%.js $(lab_js)
 build/test/SingleTest.html : src/test/SingleTest.html | build/test/SingleTest-en.js
 	@mkdir -v -p $(dir $@)
 	@$(COPY_CMD) $< $@
+
+all: singletest unittest
 
 clean:
 	rm -rfv build
