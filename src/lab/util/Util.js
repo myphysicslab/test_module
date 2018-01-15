@@ -20,6 +20,29 @@ class Util {
   */
   constructor() { throw new Error(); }
 
+  /** Formats a number with 5 decimal places.
+  * @param {?number=} num the number to format
+  * @return {string} the number with 5 decimal places; or `null` or `undefined`
+  */
+  static NF5(num) {
+    if (goog.isDefAndNotNull(num))
+      return num.toFixed(5);
+    else
+      return num === null ? 'null' : 'undefined';
+  };
+
+  /** Throws an error if the argument is not a number.
+  * @param {number} value the number to test
+  * @return {number} the value that passed the test
+  * @throws {!Error} if the argument is not a number
+  */
+  static testNumber(value) {
+    if (isNaN(value)) {
+      throw new Error('not a number '+value);
+    }
+    return value;
+  };
+
   /** Returns the
   * [language independent form](Building.html#languageindependentnames) of the given
   * string by changing to uppercase and replacing spaces and dashes with underscores.

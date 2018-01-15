@@ -15,10 +15,14 @@
 goog.provide('myphysicslab.test.SingleTest');
 
 goog.require('myphysicslab.lab.util.Util');
+goog.require('myphysicslab.lab.util.MutableVector');
+goog.require('myphysicslab.lab.util.Vector');
 
 goog.scope(function() {
 
 var Util = goog.module.get('myphysicslab.lab.util.Util');
+var MutableVector = goog.module.get('myphysicslab.lab.util.MutableVector');
+var Vector = goog.module.get('myphysicslab.lab.util.Vector');
 
 /** Runs a simple test.
 
@@ -61,6 +65,19 @@ SingleTest.runTests = function() {
   SingleTest.myPrintln('veryDifferent(2E-14, 3.1E-14) = '+Util.veryDifferent(2E-14, 3.1E-14));
   SingleTest.myPrintln('veryDifferent(2E-14, 2.9E-14) = '+Util.veryDifferent(2E-14, 2.9E-14));
   SingleTest.myPrintln('toName("foo bar") = '+Util.toName('foo bar'));
+  const v1 = new Vector(1,1);
+  const v2 = new Vector(2,2);
+  SingleTest.myPrintln('v1='+v1+' length='+v1.length());
+  SingleTest.myPrintln('v2='+v2+' length='+v2.length());
+  const sum = v1.add(v2);
+  SingleTest.myPrintln('v1+v2='+sum+' length='+sum.length());
+  const v3 = MutableVector.clone(v1);
+  SingleTest.myPrintln('v3='+v3);
+  v3.add(v1);
+  SingleTest.myPrintln('add v1: v3='+v3);
+  SingleTest.myPrintln('v3.length='+v3.length());
+  SingleTest.myPrintln('');
+  SingleTest.myPrintln('');
 };
 
 }); // goog.scope
