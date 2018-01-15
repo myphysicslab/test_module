@@ -12,17 +12,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-goog.module('myphysicslab.lab.util.test.Vector_test');
-goog.setTestOnly('myphysicslab.lab.util.test.Vector_test');
+goog.provide('myphysicslab.lab.util.test.Vector_test');
 
-const Vector = goog.require('myphysicslab.lab.util.Vector');
-const MutableVector = goog.require('myphysicslab.lab.util.MutableVector');
-const jsunit = goog.require('goog.testing.jsunit');
-const testSuite = goog.require('goog.testing.testSuite');
+goog.require('myphysicslab.lab.util.MutableVector');
+goog.require('myphysicslab.lab.util.Vector');
+goog.require('goog.testing.jsunit');
 
-testSuite({
-
-testVector: function() {
+var testVector = function() {
+  var MutableVector = goog.module.get('myphysicslab.lab.util.MutableVector');
+  var Vector = goog.module.get('myphysicslab.lab.util.Vector');
   var v1 = new Vector(2.1, 3.2);
   assertEquals(2.1, v1.getX());
   assertEquals(3.2, v1.getY());
@@ -34,10 +32,5 @@ testVector: function() {
   var v3 = v1.add(v2);
   assertEquals(3.1, v3.getX());
   assertEquals(4.2, v3.getY());
-}
-
-});
-
-class Vector_test {}
-
-exports = Vector_test;
+};
+goog.exportProperty(window, 'testVector', testVector);

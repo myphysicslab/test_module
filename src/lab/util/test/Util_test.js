@@ -12,16 +12,16 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-goog.module('myphysicslab.lab.util.test.Util_test');
-goog.setTestOnly('myphysicslab.lab.util.test.Util_test');
+goog.provide('myphysicslab.lab.util.test.Util_test');
+//goog.setTestOnly('myphysicslab.lab.util.test.Util_test');
 
-const Util = goog.require('myphysicslab.lab.util.Util');
-const jsunit = goog.require('goog.testing.jsunit');
-const testSuite = goog.require('goog.testing.testSuite');
+goog.require('myphysicslab.lab.util.Util');
+//const Util = goog.require('myphysicslab.lab.util.Util');
+goog.require('goog.testing.jsunit');
 
-testSuite({
 
-testUtil: function() {
+var testUtil = function() {
+  var Util = goog.module.get('myphysicslab.lab.util.Util');
   // the default tolerance is 1E-14, so large and small numbers should differ
   // at about the 14th decimal place
   assertTrue(Util.veryDifferent(2E-14, 3.1E-14));
@@ -49,9 +49,4 @@ testUtil: function() {
   assertEquals('FOO_BAR', Util.toName('FOO-BAR'));
   assertEquals('FOO_BAR', Util.toName('FOO_BAR'));
 }
-
-});
-
-class Util_test {}
-
-exports = Util_test;
+goog.exportProperty(window, 'testUtil', testUtil);

@@ -17,8 +17,6 @@ goog.provide('myphysicslab.test.UnitTest');
 goog.require('myphysicslab.lab.util.test.Vector_test');
 goog.require('myphysicslab.lab.util.test.Util_test');
 
-goog.scope(function() {
-
 /** Runs unit tests.
 
 * @constructor
@@ -29,6 +27,3 @@ goog.scope(function() {
 myphysicslab.test.UnitTest = function() {
   throw new Error();
 };
-var UnitTest = myphysicslab.test.UnitTest;
-
-}); // goog.scope

@@ -15,99 +15,101 @@
 goog.module('myphysicslab.lab.util.Util');
 
 class Util {
-  /** Provides static utility functions.
-  @private
-  */
-  constructor() { throw new Error(); }
 
-  /** Formats a number with 5 decimal places.
-  * @param {?number=} num the number to format
-  * @return {string} the number with 5 decimal places; or `null` or `undefined`
-  */
-  static NF5(num) {
-    if (goog.isDefAndNotNull(num))
-      return num.toFixed(5);
-    else
-      return num === null ? 'null' : 'undefined';
-  };
+/** Provides static utility functions.
+@private
+*/
+constructor() { throw new Error(); }
 
-  /** Throws an error if the argument is not a number.
-  * @param {number} value the number to test
-  * @return {number} the value that passed the test
-  * @throws {!Error} if the argument is not a number
-  */
-  static testNumber(value) {
-    if (isNaN(value)) {
-      throw new Error('not a number '+value);
-    }
-    return value;
-  };
+/** Formats a number with 5 decimal places.
+* @param {?number=} num the number to format
+* @return {string} the number with 5 decimal places; or `null` or `undefined`
+*/
+static NF5(num) {
+  if (goog.isDefAndNotNull(num))
+    return num.toFixed(5);
+  else
+    return num === null ? 'null' : 'undefined';
+};
 
-  /** Returns the
-  * [language independent form](Building.html#languageindependentnames) of the given
-  * string by changing to uppercase and replacing spaces and dashes with underscores.
-  * @param {string} text
-  * @return {string} the text upper-cased and with spaces and dashes replaced by
-  *   underscores
-  */
-  static toName(text) {
-    return text.toUpperCase().replace(/[ -]/g, '_');
-  };
+/** Throws an error if the argument is not a number.
+* @param {number} value the number to test
+* @return {number} the value that passed the test
+* @throws {!Error} if the argument is not a number
+*/
+static testNumber(value) {
+  if (isNaN(value)) {
+    throw new Error('not a number '+value);
+  }
+  return value;
+};
 
-  /** Returns `true` if the numbers are significantly different to a certain tolerance
-  level, adjusting the tolerance for larger numbers.
+/** Returns the
+* [language independent form](Building.html#languageindependentnames) of the given
+* string by changing to uppercase and replacing spaces and dashes with underscores.
+* @param {string} text
+* @return {string} the text upper-cased and with spaces and dashes replaced by
+*   underscores
+*/
+static toName(text) {
+  return text.toUpperCase().replace(/[ -]/g, '_');
+};
 
-  For numbers with absolute value smaller than `magnitude` the numbers are compared using
-  a fixed tolerance of `magnitude*epsilon`.
+/** Returns `true` if the numbers are significantly different to a certain tolerance
+level, adjusting the tolerance for larger numbers.
 
-  For numbers with absolute value larger than `magnitude`, the tolerance is
-  `epsilon` times the larger of the absolute values of the numbers being compared.
+For numbers with absolute value smaller than `magnitude` the numbers are compared using
+a fixed tolerance of `magnitude*epsilon`.
 
-  Unless specified, the default for `magnitude` is 1.0 and `epsilon` is 1E-14. These
-  settings return `true` if the numbers are significantly different to approximately 14
-  decimal digits when their magnitude is near 1.0.
+For numbers with absolute value larger than `magnitude`, the tolerance is
+`epsilon` times the larger of the absolute values of the numbers being compared.
 
-  The goal is to have a test that is immune to the inaccuracy of double arithmetic.
-  Doubles have 15 to 17 significant decimal digits of accuracy, so comparing 14
-  significant digits should be fairly safe from the inaccuracy in double arithmetic.
+Unless specified, the default for `magnitude` is 1.0 and `epsilon` is 1E-14. These
+settings return `true` if the numbers are significantly different to approximately 14
+decimal digits when their magnitude is near 1.0.
 
-  This method takes into account the size of the numbers being compared, so it is
-  safer than code such as
+The goal is to have a test that is immune to the inaccuracy of double arithmetic.
+Doubles have 15 to 17 significant decimal digits of accuracy, so comparing 14
+significant digits should be fairly safe from the inaccuracy in double arithmetic.
 
-      if (Math.abs(a - b) > 1E-16)  // do something
+This method takes into account the size of the numbers being compared, so it is
+safer than code such as
 
-  Doubles have 15 to 17 significant decimal digits of accuracy. When the numbers being
-  compared are much bigger in magnitude than 1.0, then this test is too strict -- it
-  effectively is comparing to zero, meaning exact equality.
+    if (Math.abs(a - b) > 1E-16)  // do something
 
-  See [Comparing Floating Point Numbers, 2012
-  Edition](https://randomascii.wordpress.com/2012/02/25/comparing-floating-point-numbers-2012-edition/) by Bruce Dawson.
+Doubles have 15 to 17 significant decimal digits of accuracy. When the numbers being
+compared are much bigger in magnitude than 1.0, then this test is too strict -- it
+effectively is comparing to zero, meaning exact equality.
 
-  See [StackOverflow: How dangerous is it to compare floating point values?](http://stackoverflow.com/questions/10334688/how-dangerous-is-it-to-compare-floating-point-values)
+See [Comparing Floating Point Numbers, 2012
+Edition](https://randomascii.wordpress.com/2012/02/25/comparing-floating-point-numbers-2012-edition/) by Bruce Dawson.
+
+See [StackOverflow: How dangerous is it to compare floating point values?](http://stackoverflow.com/questions/10334688/how-dangerous-is-it-to-compare-floating-point-values)
 
 
-  @param {number} arg1  the first number to compare
-  @param {number} arg2  the second number to compare
-  @param {number=} epsilon the small value used with `magnitude` to calculate
-      the tolerance for deciding when the numbers are different, default is 1E-14.
-  @param {number=} magnitude the approximate magnitude of the numbers being compared,
-      default is 1.0.
-  @return {boolean} true if the doubles are different to 14 significant decimal digits
-  @throws {!Error} if `magnitude` or `epsilon` is negative or zero
-  */
-  static veryDifferent(arg1, arg2, epsilon, magnitude) {
-    epsilon = epsilon || 1E-14;
-    if (epsilon <= 0) {
-      throw new Error('epsilon must be positive '+epsilon);
-    }
-    magnitude = magnitude || 1.0;
-    if (magnitude <= 0) {
-      throw new Error('magnitude must be positive '+magnitude);
-    }
-    var maxArg = Math.max(Math.abs(arg1), Math.abs(arg2));
-    var max = maxArg > magnitude ? maxArg : magnitude;
-    return Math.abs(arg1 - arg2) > max * epsilon;
-  };
+@param {number} arg1  the first number to compare
+@param {number} arg2  the second number to compare
+@param {number=} epsilon the small value used with `magnitude` to calculate
+    the tolerance for deciding when the numbers are different, default is 1E-14.
+@param {number=} magnitude the approximate magnitude of the numbers being compared,
+    default is 1.0.
+@return {boolean} true if the doubles are different to 14 significant decimal digits
+@throws {!Error} if `magnitude` or `epsilon` is negative or zero
+*/
+static veryDifferent(arg1, arg2, epsilon, magnitude) {
+  epsilon = epsilon || 1E-14;
+  if (epsilon <= 0) {
+    throw new Error('epsilon must be positive '+epsilon);
+  }
+  magnitude = magnitude || 1.0;
+  if (magnitude <= 0) {
+    throw new Error('magnitude must be positive '+magnitude);
+  }
+  var maxArg = Math.max(Math.abs(arg1), Math.abs(arg2));
+  var max = maxArg > magnitude ? maxArg : magnitude;
+  return Math.abs(arg1 - arg2) > max * epsilon;
+};
+
 };
 
 
