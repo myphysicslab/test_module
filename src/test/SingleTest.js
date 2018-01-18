@@ -63,8 +63,9 @@ SingleTest.myPrintln = function(s) {
 * @export
 */
 SingleTest.runTests = function() {
-  SingleTest.myPrintln('ADVANCED='+Util.ADVANCED);
-  SingleTest.myPrintln('DEBUG='+Util.DEBUG);
+  SingleTest.myPrintln('Util.ADVANCED='+Util.ADVANCED);
+  SingleTest.myPrintln('goog.DEBUG='+goog.DEBUG);
+  SingleTest.myPrintln('Util.DEBUG='+Util.DEBUG);
   SingleTest.myPrintln('compile time='+Util.COMPILE_TIME);
   SingleTest.myPrintln('veryDifferent(2E-14, 3.1E-14) = '+Util.veryDifferent(2E-14, 3.1E-14));
   SingleTest.myPrintln('veryDifferent(2E-14, 2.9E-14) = '+Util.veryDifferent(2E-14, 2.9E-14));
