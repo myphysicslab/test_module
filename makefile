@@ -3,6 +3,8 @@ all:
 
 singletest : build/test/SingleTest.html
 
+singletest_debug: debug/test/SingleTest_DEBUG.html
+
 unittest: build/test/UnitTest.html
 
 CLOSURE_COMPILER := ../closure-compiler/target/closure-compiler-1.0-SNAPSHOT.jar
@@ -38,6 +40,12 @@ lab_js := $(shell find src/lab -name '*.js')
 # This is because `make` regards any file that doesn't appear as a target or goal
 # as an intermediate file.
 
+src_js := $(shell find src -name '*.js')
+debug/deps.js : $(src_js)
+	@mkdir -v -p $(dir $@)
+	python ./closure-library/closure/bin/build/depswriter.py \
+	--root_with_prefix="src ../../../src" > $@
+
 build/test/UnitTest-en.js build/test/SingleTest-en.js : build/%-en.js : src/%.js $(lab_js)
 	@mkdir -v -p $(dir $@)
 	./compile.sh $< $@ true true simple
@@ -46,11 +54,15 @@ build/test/SingleTest.html : src/test/SingleTest.html | build/test/SingleTest-en
 	@mkdir -v -p $(dir $@)
 	@$(COPY_CMD) $< $@
 
+debug/test/SingleTest_DEBUG.html : src/test/SingleTest_DEBUG.html | debug/deps.js
+	@mkdir -v -p $(dir $@)
+	@$(COPY_CMD) $< $@
+
 build/test/UnitTest.html : src/test/UnitTest.html | build/test/UnitTest-en.js
 	@mkdir -v -p $(dir $@)
 	@$(COPY_CMD) $< $@
 
-all: singletest unittest
+all: singletest unittest singletest_debug
 
 clean:
 	rm -rfv build

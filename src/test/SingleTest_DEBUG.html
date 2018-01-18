@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+  <p id="test_results">Test results:<br></p>
+  <!-- When running from uncompiled source code, the goog.require()
+  * statement writes many script tags at this point in the html file;
+  * these define the classes needed for the required class,
+  * in the correct dependency order specified by deps.js.
+  * We must do "new App" from a separate script tag, to ensure all those
+  * emitted class definitions have executed.
+  *
+  * More info:  Closure: The Definitive Guide, Chapter 3, the section on
+  * Dependency Management. See especially the html example at end of the
+  * section about goog.addDependency. -->
+  <script src="../../closure-library/closure/goog/base.js"></script>
+  <script src="../deps.js"></script>
+  <script>
+    goog.define('goog.LOCALE', 'en');
+    goog.require('myphysicslab.test.SingleTest');
+  </script>
+  <script>myphysicslab.test.SingleTest.runTests()</script>
+</body>
+
+</html>
