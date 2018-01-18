@@ -46,7 +46,8 @@ debug/deps.js : $(src_js)
 	python ./closure-library/closure/bin/build/depswriter.py \
 	--root_with_prefix="src ../../../src" > $@
 
-build/test/UnitTest-en.js build/test/SingleTest-en.js : build/%-en.js : src/%.js $(lab_js)
+apps_js_en := build/test/UnitTest-en.js build/test/SingleTest-en.js
+$(apps_js_en) : build/%-en.js : src/%.js $(lab_js)
 	@mkdir -v -p $(dir $@)
 	./compile.sh $< $@ true true simple
 
