@@ -17,11 +17,13 @@ goog.provide('myphysicslab.test.SingleTest');
 goog.require('myphysicslab.lab.util.Util');
 goog.require('myphysicslab.lab.util.MutableVector');
 goog.require('myphysicslab.lab.util.Vector');
+goog.require('myphysicslab.lab.util.Clock');
 
 goog.scope(function() {
 
-var Util = goog.module.get('myphysicslab.lab.util.Util');
+var Clock = goog.module.get('myphysicslab.lab.util.Clock');
 var MutableVector = goog.module.get('myphysicslab.lab.util.MutableVector');
+var Util = goog.module.get('myphysicslab.lab.util.Util');
 var Vector = goog.module.get('myphysicslab.lab.util.Vector');
 
 /** Runs a simple test.
@@ -78,6 +80,14 @@ SingleTest.runTests = function() {
   v3.add(v1);
   SingleTest.myPrintln('add v1: v3='+v3);
   SingleTest.myPrintln('v3.length='+v3.length());
+  SingleTest.myPrintln('');
+  SingleTest.myPrintln('== TEST CLOCK ==');
+  const clk = new Clock();
+  clk.setTime(3.3);
+  SingleTest.myPrintln('clk.getTime()='+clk.getTime());
+  SingleTest.myPrintln('clk='+clk);
+  SingleTest.myPrintln('');
+  SingleTest.myPrintln('');
   SingleTest.myPrintln('');
   SingleTest.myPrintln('');
 };
